@@ -18,12 +18,12 @@ Bouncy_Button::~Bouncy_Button(){
 }
 
 void Bouncy_Button::IRS(){
-    pressed=true;
     if (TYPE){
         INTER.detachInterrupt();
     }else{
         detachInterrupt(PIN);
     }
+    pressed=true;
     pressed_time=millis();
 }
 
@@ -39,8 +39,8 @@ void Bouncy_Button::setup(void (*main_func)(),void (*irs_func)()){
         INTER.attachInterrupt(irs_handler,STATE);
     }else{
         attachInterrupt(PIN,irs_handler,STATE);
-    }    
-    setup_finished=true;          
+    }
+    setup_finished=true;
 }
 
 
@@ -52,7 +52,7 @@ void Bouncy_Button::disable(){
 
 void Bouncy_Button::main(){
     if (TYPE){
-        INTER.main();    
+        INTER.main();
     }
     if(setup_finished && pressed){
        if (millis()-pressed_time>=500){
@@ -66,4 +66,3 @@ void Bouncy_Button::main(){
         } 
     }                               
 }
-

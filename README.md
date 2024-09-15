@@ -1,2 +1,2 @@
-# SoftwareInterrupt
-Class that can recognize change of state on any digital input of Arduino Uno
+# BouncyButton
+Software approach to avoid bouncy effect on mechanical buttons

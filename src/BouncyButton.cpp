@@ -16,27 +16,27 @@ Bouncy_Button::Bouncy_Button(int Pin, int Mode, int State, mytype Type){
 Bouncy_Button::~Bouncy_Button(){
     //dtor
 }
-
+//this should be provided as IRS function in the IRS main for the desired state
 void Bouncy_Button::IRS(){
-    if (TYPE){
-        INTER.detachInterrupt();
-    }else{
+    if (TYPE==MYHARD){
         detachInterrupt(PIN);
     }
     pressed=true;
     pressed_time=millis();
 }
 
-void Bouncy_Button::setup(void (*main_func)(),void (*irs_func)()){
+void Bouncy_Button::setup(void (*main_func)(),void (*irs_func)(),int delay){
     if (TYPE){
         INTER.setup(MODE);
     }else{
-        pinMode(PIN,MODE);
+        if (MODE==(INPUT || INPUT_PULLUP)){
+            pinMode(PIN,MODE);
+        }
     }
     main_handler=main_func;
     irs_handler=irs_func;
     if (TYPE){
-        INTER.attachInterrupt(irs_handler,STATE);
+        INTER.attachInterrupt(irs_handler,STATE,delay);
     }else{
         attachInterrupt(PIN,irs_handler,STATE);
     }
@@ -45,22 +45,34 @@ void Bouncy_Button::setup(void (*main_func)(),void (*irs_func)()){
 
 
 void Bouncy_Button::disable(){
-  setup_finished=false;
-  main_handler=NULL;
-  irs_handler=NULL;
+    setup_finished=false;
+    if (TYPE){
+        INTER.detachInterrupt();
+    }else{
+        detachInterrupt(PIN);
+    }
+}
+
+
+void Bouncy_Button::update_time(){
+    if (millis()-pressed_time>=delay){
+        time_passed=true;
+    }
 }
 
 void Bouncy_Button::main(){
-    if (TYPE){
+    if (setup_finished && TYPE){
         INTER.main();
     }
     if(setup_finished && pressed){
-       if (millis()-pressed_time>=500){
+        if (pressed){
+            update_time();
+        }
+        if (time_passed){
+            time_passed=false;
             pressed=false;
             main_handler();
-            if (TYPE){
-                INTER.attachInterrupt(irs_handler, STATE);
-            }else{
+            if (TYPE==MYHARD){
                 attachInterrupt(PIN, irs_handler, STATE);
             }
         } 

@@ -14,7 +14,7 @@ class Bouncy_Button
     public:
         Bouncy_Button(int Pin, int Mode, int State, mytype Type);
         virtual ~Bouncy_Button();
-        void setup(void (*main_func)(),void (*irs_func)());
+        void setup(void (*main_func)(),void (*irs_func)(), int delay=NULL);
         void IRS();
         void main();
         void disable();
@@ -22,14 +22,17 @@ class Bouncy_Button
         
         
     private:
+        void update_time();
+        bool time_passed;
         void (*main_handler)()=NULL;
         void (*irs_handler)()=NULL;
-        bool pressed;
-        bool setup_finished;
+        bool pressed=false;
+        bool setup_finished=false;
         long int pressed_time;
         int PIN;
         int MODE;
         int STATE;
+        int delay=500;
         mytype TYPE;
         Software_Interrupt INTER=NULL;
 };

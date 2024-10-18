@@ -25,5 +25,5 @@ void setup() {
 }
 
 void loop() {
-    mybutton.main();  
+    mybutton.main();
 }

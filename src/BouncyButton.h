@@ -5,7 +5,7 @@
 #include <SoftwareInterrupt.h>
 //this is the type of interrupt that will be connected to the pin
 enum mytype{
-    MYSOFT=1,    
+    MYSOFT=1,
     MYHARD=0,
 };
 
@@ -19,8 +19,7 @@ class Bouncy_Button
         void main();
         void disable();
     protected:
-        
-        
+
     private:
         void update_time();
         bool time_passed;

@@ -76,5 +76,5 @@ void Bouncy_Button::main(){
                 attachInterrupt(PIN, irs_handler, STATE);
             }
         } 
-    }                               
+    }
 }

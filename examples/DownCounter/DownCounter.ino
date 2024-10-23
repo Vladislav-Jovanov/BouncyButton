@@ -1,4 +1,4 @@
-#include <BouncyButton.h>
+﻿#include <BouncyButton.h>
 
 
 
@@ -20,8 +20,8 @@ void main_action(){
 
 
 void setup() {
-  Serial.begin(115200);
-  mybutton.setup(&main_action,&IRS,500);
+    Serial.begin(115200);
+    mybutton.setup(&main_action,&IRS,500);
 }
 
 void loop() {

@@ -18,18 +18,18 @@ Bouncy_Button::~Bouncy_Button(){
 }
 //this should be provided as IRS function in the IRS main for the desired state
 void Bouncy_Button::IRS(){
+    pressed=true;
+    pressed_time=millis();
     if (TYPE==MYHARD){
         detachInterrupt(PIN);
     }
-    pressed=true;
-    pressed_time=millis();
 }
 
 void Bouncy_Button::setup(void (*main_func)(),void (*irs_func)(),int delay){
     if (TYPE){
         INTER.setup(MODE);
     }else{
-        if (MODE==(INPUT || INPUT_PULLUP)){
+        if ((MODE==INPUT) || (MODE==INPUT_PULLUP)){
             pinMode(PIN,MODE);
         }
     }

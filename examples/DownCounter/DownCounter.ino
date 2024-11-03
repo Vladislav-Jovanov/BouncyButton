@@ -1,9 +1,7 @@
-﻿#include <BouncyButton.h>
-
-
+#include <BouncyButton.h>
 
 int prg_nmbr=0;
-Bouncy_Button mybutton(4,INPUT_PULLUP, FALLING, MYSOFT);
+Bouncy_Button mybutton(4,INPUT_PULLUP, FALLING, MYHARD);
 
 //this function is necessary
 void IRS(){
